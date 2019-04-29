@@ -1,0 +1,1543 @@
+ATIVDADE 2
+
+---------------------1--------------------
+
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+#include <cstdlib>
+#include "Circulo.h"
+#include "formaBasica.h"
+#include <math.h>
+
+using namespace std;
+
+Circulo::Circulo(){
+
+}
+
+Circulo::~Circulo(){
+
+}
+
+Circulo::Circulo(const Circulo& obj) : formaBasica(obj){
+	this->raio = obj.raio;
+}
+
+Circulo::Circulo(const float x, const float y, const int cor, const int espessura, const int contorno, const float raio) : formaBasica(x, y, cor, espessura, contorno){
+this->raio = raio;
+}
+
+void Circulo::setRaio(float x){
+	this->raio = x;
+}
+
+float Circulo::getRaio(){
+	return this->raio;
+}
+
+void Circulo::imprime(){
+
+	formaBasica::imprime();
+	cout << this->raio << endl;
+}
+
+double Circulo::area(){
+	return (3.14 * pow(this->raio, 2));
+}
+
+/*istream& operator>>(istream& entrada, Circulo& obj){
+	entrada >> obj.setX();
+	entrada >> obj.setY();
+	entrada >> obj.setCor();
+	entrada >> obj.setContorno();
+	entrada >> obj.setEspessura();
+	//formaBasica::operator>>(obj);
+	entrada >> obj.raio;
+
+	return entrada;
+
+}*/
+
+ostream& operator<<(ostream& saida, Circulo& obj) {
+	saida << obj.getX() << " ";
+	saida << obj.getY() << " ";
+	saida << obj.getCor() << " ";
+	saida << obj.getEspessura() << " ";
+	saida << obj.getContorno() << " ";
+	//formaBasica::operator<<(obj);
+	saida << obj.raio << endl;
+
+	return saida;
+}
+
+//TEM QUE SER O OPERATOR DA BASE + O OPERATOR DO CIRCULO
+Circulo& Circulo::operator=(Circulo& obj){
+
+	formaBasica::operator=(obj);
+	this->raio = obj.raio;
+
+	return *this;
+}
+
+#include <iostream>
+#include <string>
+#include "formaBasica.h"
+
+#ifndef CIRCULO_H
+#define CIRCULO_H
+
+
+class Circulo : public formaBasica {
+
+private:
+	double raio;
+
+public:
+	Circulo();
+	~Circulo();
+	Circulo(const float, const float, const int, const int, const int, const float);
+	Circulo(const Circulo&);
+	
+	void setRaio(float);
+	float getRaio();
+	void imprime();
+	
+	virtual double area();
+
+	Circulo& operator=(Circulo&);
+
+	friend ostream& operator<<(ostream&, Circulo&);
+	friend istream& operator>>(istream&, Circulo&);
+	
+};
+
+#endif
+
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+#include <cstdlib>
+#include "formaBasica.h"
+
+using namespace std;
+
+formaBasica::formaBasica(){
+
+}
+
+formaBasica::~formaBasica(){
+
+}
+
+formaBasica::formaBasica(const double x, const double y, const int cor, const int espessura, const int tipo){
+	this->x = x;
+	this->y = y;
+	this->cor = cor;
+	this->espessuraContorno = espessura;
+	this->tipoContorno = tipo;
+}
+
+formaBasica::formaBasica(const formaBasica& obj){
+	this->x = obj.x;
+	this->y = obj.y;
+	this->cor = obj.cor;
+	this->espessuraContorno = obj.espessuraContorno;
+	this->tipoContorno = obj.tipoContorno;
+}
+
+
+void formaBasica::imprime(){
+	printf("%f %f %i %i %i ", 
+		this->x, this->y, this->cor, this->espessuraContorno, this->tipoContorno);
+}
+
+void formaBasica::setX(float x){
+	this->x = x;
+}
+
+float formaBasica::getX(){
+	return this->x;
+}
+
+void formaBasica::setY(float y){
+	this->y = y;
+}
+
+float formaBasica::getY(){
+	return this->y;
+}
+
+void formaBasica::setCor(int x){
+	this->cor = x;
+}
+
+int formaBasica::getCor(){
+	return this->cor;
+}
+
+void formaBasica::setEspessura(int x){
+	this->espessuraContorno = x;
+}
+
+int formaBasica::getEspessura(){
+	return this->espessuraContorno;
+}
+
+void formaBasica::setContorno(int x){
+	this->tipoContorno = x;
+}
+
+int formaBasica::getContorno(){
+	return this->tipoContorno;
+}
+
+double formaBasica::area(){
+	
+}
+
+istream& operator>>(istream& entrada, formaBasica& obj){
+	entrada >> obj.x;
+	entrada >> obj.y;
+	entrada >> obj.cor;
+	entrada >> obj.espessuraContorno;
+	entrada >> obj.tipoContorno;
+
+	return entrada;
+
+}
+
+ostream& operator<<(ostream& saida, formaBasica& obj){
+	saida << obj.x << " ";
+	saida << obj.y << " ";
+	saida << obj.cor << " ";
+	saida << obj.espessuraContorno << " ";
+	saida << obj.tipoContorno << " " << endl;
+
+
+	
+	return saida;
+}
+
+formaBasica& formaBasica::operator=(formaBasica& obj){
+	this->x = obj.x;
+	this->y = obj.y;
+	this->cor = obj.cor;
+	this->espessuraContorno = obj.espessuraContorno;
+	this->tipoContorno = obj.tipoContorno;
+
+	return *this;
+}
+
+#include <iostream>
+
+#ifndef FORMA_BASICA_H
+#define FORMA_BASICA_H
+
+using namespace std;
+
+class formaBasica{
+
+private:
+	double x;
+	double y;
+	int cor;
+	int espessuraContorno;
+	int tipoContorno;
+
+public:
+	formaBasica();
+	formaBasica(const double, const double, const int, const int, const int);
+	formaBasica(const formaBasica&);
+	~formaBasica();
+
+	void setX(float);
+	float getX();
+
+	void setY(float);
+	float getY();
+
+	void setCor(int);
+	int getCor();
+
+	void setEspessura(int);
+	int getEspessura();
+
+	void setContorno(int);
+	int getContorno();
+
+	virtual double area();
+	virtual void imprime();
+
+	formaBasica& operator=(formaBasica&);
+
+	friend istream& operator>>(istream&, formaBasica&);
+	friend ostream& operator<<(ostream&, formaBasica&);
+
+};
+
+#endif
+
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+#include <cstdlib>
+#include "formaBasica.h"
+#include "Circulo.h"
+#include "Retangulo.h"
+
+using namespace std;
+
+int main(){
+
+	formaBasica a(7,77,1,2,1);
+
+	Circulo c1(100, 120, 3, 2, 1, 30);
+	c1.imprime();
+	cout << "Area = " << c1.area() << endl;
+
+	Circulo c2 = c1;
+	c2.setX(25);
+	c2.setY(17);
+	c2.setRaio(25);
+
+	c2.imprime();
+
+	cout << c2;
+
+	Retangulo r1(40, 50, 1, 1, 2, 80, 30);
+	r1.imprime();
+	cout << "Area = " << r1.area() << endl;
+
+	Retangulo r2;
+	r2 = r1;
+	r2.imprime();
+
+	formaBasica *vet[2];
+	vet[0] = &c1;
+	vet[1] = &r1;
+
+	cout << vet[0]->area() << endl;
+	cout << vet[1]->area() << endl;
+
+
+
+
+	return 0;
+}
+
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+#include <cstdlib>
+#include "Quadrado.h"
+#include "formaBasica.h"
+#include <math.h>
+
+using namespace std;
+
+Quadrado::Quadrado(){
+
+}
+
+Quadrado::~Quadrado(){
+
+}
+
+Quadrado::Quadrado() : formaBasica(obj){
+	
+}
+
+Quadrado::Quadrado(const float x, const float y, const int cor, const int espessura, const int contorno) : formaBasica(x, y, cor, espessura, contorno){
+
+}
+
+double Quadrado::area(){
+	return (getX() * getY());
+}
+
+
+void Quadrado::imprime(){
+	formaBasica::imprime();
+	cout << this->area() << endl;
+}
+
+
+
+/*istream& operator>>(istream& entrada, Quadrado& obj){
+	entrada >> obj.setX();
+	entrada >> obj.setY();
+	entrada >> obj.setCor();
+	entrada >> obj.setContorno();
+	entrada >> obj.setEspessura();
+	//formaBasica::operator>>(obj);
+	entrada >> obj.raio;
+
+	return entrada;
+
+}*/
+
+ostream& operator<<(ostream& saida, Quadrado& obj) {
+	saida << obj.getX() << " ";
+	saida << obj.getY() << " ";
+	saida << obj.getCor() << " ";
+	saida << obj.getEspessura() << " ";
+	saida << obj.getContorno() << " ";
+	//formaBasica::operator<<(obj);
+	saida << obj.area() << endl;
+
+	return saida;
+}
+
+//TEM QUE SER O OPERATOR DA BASE + O OPERATOR DO CIRCULO
+Quadrado& Quadrado::operator=(Quadrado& obj){
+
+	formaBasica::operator=(obj);
+
+
+	return *this;
+}
+
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+#include <cstdlib>
+#include "Quadrado.h"
+#include "formaBasica.h"
+#include <math.h>
+
+using namespace std;
+
+Quadrado::Quadrado(){
+
+}
+
+Quadrado::~Quadrado(){
+
+}
+
+Quadrado::Quadrado() : formaBasica(obj){
+	
+}
+
+Quadrado::Quadrado(const float x, const float y, const int cor, const int espessura, const int contorno) : formaBasica(x, y, cor, espessura, contorno){
+
+}
+
+double Quadrado::area(){
+	return (getX() * getY());
+}
+
+
+void Quadrado::imprime(){
+	formaBasica::imprime();
+	cout << this->area() << endl;
+}
+
+
+
+/*istream& operator>>(istream& entrada, Quadrado& obj){
+	entrada >> obj.setX();
+	entrada >> obj.setY();
+	entrada >> obj.setCor();
+	entrada >> obj.setContorno();
+	entrada >> obj.setEspessura();
+	//formaBasica::operator>>(obj);
+	entrada >> obj.raio;
+
+	return entrada;
+
+}*/
+
+ostream& operator<<(ostream& saida, Quadrado& obj) {
+	saida << obj.getX() << " ";
+	saida << obj.getY() << " ";
+	saida << obj.getCor() << " ";
+	saida << obj.getEspessura() << " ";
+	saida << obj.getContorno() << " ";
+	//formaBasica::operator<<(obj);
+	saida << obj.area() << endl;
+
+	return saida;
+}
+
+//TEM QUE SER O OPERATOR DA BASE + O OPERATOR DO CIRCULO
+Quadrado& Quadrado::operator=(Quadrado& obj){
+
+	formaBasica::operator=(obj);
+
+
+	return *this;
+}
+
+#include <iostream>
+#include <string>
+#include "formaBasica.h"
+
+#ifndef QUADRADO_H
+#define QUADRADO_H
+
+using namespace std;
+
+class Quadrado : public formaBasica{ 
+
+public:
+
+	virtual double area();
+	virtual void imprime();
+
+	Quadrado();
+	~Quadrado();
+
+	//Quadrado(const Quadrado&);
+	Quadrado(const float, const float, const int, const int, const int);
+
+	Quadrado& operator=(Quadrado&);
+
+private:
+
+
+
+	
+
+
+};
+
+#endif
+
+#include <string>
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+#include <cstdlib>
+#include "formaBasica.h"
+#include "Retangulo.h"
+#include <math.h>
+
+using namespace std;
+
+	Retangulo::Retangulo(){
+
+	}
+
+	Retangulo::~Retangulo(){
+
+	}
+
+	Retangulo::Retangulo(Retangulo& obj): formaBasica(obj){
+		this->altura = obj.altura;
+		this->largura = obj.largura;
+
+	}
+
+	Retangulo::Retangulo(const double x, const double y, const int cor, const int esp, const int tipo, 
+		const double altura, const double largura) : formaBasica(x, y, cor, esp, tipo){
+
+		this->altura = altura;
+		this->largura = largura;
+	}
+
+
+	double Retangulo::getAltura(){
+		return this->altura;
+	}
+
+	void Retangulo::setAltura(double x){
+		this->altura = x;
+	}
+
+	double Retangulo::getLargura(){
+		return this->largura;
+	}
+
+	void Retangulo::setLargura(double x){
+		this->largura = x;
+	}
+
+	void Retangulo::imprime(){
+
+		formaBasica::imprime();
+		cout << this->altura << endl;
+		cout << this->largura << endl;
+
+	}
+
+	double Retangulo::area(){
+		return this->largura * this->altura;
+	}
+
+
+	Retangulo&  Retangulo::operator=(Retangulo& obj){
+
+		formaBasica::operator=(obj);
+		this->altura = obj.altura;
+		this->largura = obj.largura;
+
+		return *this;
+	}
+
+	ostream& operator<<(ostream& saida, Retangulo& obj){
+		//formaBasica::obj.imprime(); // ??
+		saida << obj.getX() << " ";
+		saida << obj.getY() << " ";
+		saida << obj.getCor() << " ";
+		saida << obj.getEspessura() << " ";
+		saida << obj.getContorno() << " ";
+		saida << obj.altura << " ";
+		saida << obj.largura << endl;
+
+	}
+
+	istream& operator>>(istream& entrada, Retangulo& obj){
+
+	}
+
+
+#include <iostream>
+#include <string>
+#include "formaBasica.h"
+
+#ifndef RETANGULO_H
+#define RETANGULO_H
+
+using namespace std;
+
+class Retangulo : public formaBasica{
+
+private:
+	double altura;
+	double largura;
+
+public:
+
+	Retangulo();
+	Retangulo(const double, const double, const int, const int, const int, const double, const double);
+	Retangulo(Retangulo&);
+	~Retangulo();
+
+	double getAltura();
+	void setAltura(double);
+
+	double getLargura();
+	void setLargura(double);
+
+	virtual double area();
+	void imprime();
+
+	Retangulo& operator=(Retangulo&);
+
+	friend ostream& operator<<(ostream&, Retangulo&);
+	friend istream& operator>>(istream&, Retangulo&);
+
+
+};
+
+#endif
+
+----------------------2-------------------------------
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include "Ajudante.h"
+
+using namespace std;
+
+Ajudante::Ajudante(){
+	setAssistencias(0);
+}
+
+Ajudante::~Ajudante(){
+	
+}
+
+Ajudante::Ajudante(Ajudante& obj) : Organizador(obj){
+	this->assistencias = obj.assistencias;
+}
+
+Ajudante::Ajudante(string n, const int m, const int h, const int d , const double s, const int a)
+ : Organizador(n,m,h,d,s){
+
+ 	this->assistencias = a;
+ }
+
+void Ajudante::imprime(){
+	Pessoa::imprime();
+	Organizador::imprime();
+	cout << "Assistencias: " << this->assistencias << endl;
+}
+
+Ajudante& Ajudante::operator=(Ajudante& obj){
+	Organizador::operator=(obj);
+	this->assistencias = obj.assistencias;
+
+	return *this;
+
+}
+
+void Ajudante::setAssistencias(int a){this->assistencias = a;}
+int Ajudante::getAssistencias(){return this->assistencias;}
+
+double Ajudante::dinheiroRecebido(){
+
+	double din = (getDia() * getSalario() + (10 * this->assistencias));
+
+	return din;
+}
+
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "Organizador.h"
+
+#ifndef AJUDANTE_H
+#define AJUDANTE_H
+
+using namespace std;
+
+class Ajudante : public Organizador{
+
+private:
+	int assistencias;
+
+public:
+	Ajudante();
+	~Ajudante();
+
+	Ajudante(Ajudante&);
+	Ajudante(string, const int , const int, const int , const double, const int);
+
+	Ajudante& operator=(Ajudante&);
+
+	void setAssistencias(int);
+	int getAssistencias();
+
+	virtual void imprime();
+	virtual double dinheiroRecebido();
+};
+
+#endif
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "Competidor.h"
+
+using namespace std;
+
+Competidor::Competidor(){
+	this->nomeEquipe = " ";
+	this->colocacao = 0;
+}
+
+Competidor::~Competidor(){
+
+}
+
+Competidor::Competidor(Competidor& obj) : Participante(obj){
+	this->nomeEquipe = obj.nomeEquipe;
+	this->colocacao = obj.colocacao;
+}
+
+Competidor::Competidor(string n ,int m, double p, string e, int c) : Participante(n, m, p){
+	this->nomeEquipe = e;
+	this->colocacao = c;
+}
+
+void Competidor::setColocacao(int c){
+	this->colocacao = c;
+}
+
+int Competidor::getColocacao(){
+	return this->colocacao;
+}
+
+void Competidor::setEquipe(string s){
+	this->nomeEquipe = s;
+}
+
+string Competidor::getEquipe(){
+	return this->nomeEquipe;
+}
+
+Competidor& Competidor::operator=(Competidor& obj){
+	Participante::operator=(obj);
+
+	this->nomeEquipe = obj.nomeEquipe;
+	this->colocacao = obj.colocacao;
+}
+
+
+void Competidor::imprime(){
+	//Pessoa::imprime();
+	Participante::imprime();
+	cout << "Nome equipe: " << getEquipe() << endl;
+	cout << "Colocacao: " << getColocacao() << endl;
+}
+
+double Competidor::dinheiroRecebido(){
+	setPremio(100);
+
+	double din = 0;
+
+	if(getColocacao() == 1)
+		return (getPremio() + 300/1);
+
+	if(getColocacao() == 2)
+		return (getPremio() +300/2);
+
+	if(getColocacao() == 3)
+		return (getPremio() +300/3);
+
+
+
+}
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include "Participante.h"
+
+using namespace std;
+
+class Competidor : Participante
+{
+public:
+	Competidor();
+	~Competidor();
+
+	Competidor(Competidor&);
+	Competidor(string ,int, double, string, int);
+
+	void setColocacao(int);
+	int getColocacao();
+
+	void setEquipe(string);
+	string getEquipe();
+
+	Competidor& operator=(Competidor&);
+
+	virtual void imprime();
+	virtual double dinheiroRecebido();
+
+private:
+	int colocacao;
+	string nomeEquipe;
+	
+};
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include "Juiz.h"
+
+using namespace std;
+
+Juiz::Juiz(){
+
+}
+
+Juiz::~Juiz(){
+
+}
+
+Juiz::Juiz(string nome, int m, int h, int d, double s, int j): Organizador(nome, m, h, d, s){
+	this->julgamamentos = j;
+}
+
+Juiz::Juiz(Juiz& obj) : Organizador(obj){
+	this->julgamamentos = obj.julgamamentos;
+}
+
+
+void Juiz::setJulgamentos(int i){
+this->julgamamentos = i;
+	
+}
+
+int Juiz::getJulgamentos(){
+	return this->julgamamentos;
+}
+
+Juiz& Juiz::operator=(Juiz& obj){
+
+	Organizador::operator=(obj);
+	this->julgamamentos = obj.julgamamentos;
+
+	return *this;
+}
+
+double Juiz::dinheiroRecebido(){
+
+	double din = (getDia() * getSalario() + (15 * this->julgamamentos));
+
+	return din;
+}
+
+
+void Juiz::imprime(){
+	Pessoa::imprime();
+	Organizador::imprime();
+	cout << "Julgamamentos: " << this->julgamamentos << endl;
+
+}
+
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include "Organizador.h"
+
+using namespace std;
+
+#ifndef JUIZ_H
+#define JUIZ_H
+
+class Juiz : public Organizador
+{
+public:
+	Juiz();
+	~Juiz();
+
+	Juiz(Juiz&);
+	Juiz(string ,int, int, int, double, int);
+
+	void setJulgamentos(int);
+	int getJulgamentos();
+	Juiz& operator=(Juiz&);
+
+	virtual void imprime();
+	virtual double dinheiroRecebido();
+
+
+
+private:
+	int julgamamentos;
+	
+};
+
+#endif
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "Pessoa.h"
+#include "Organizador.h"
+#include "Juiz.h"
+#include "Ajudante.h"
+#include "Participante.h"
+#include "Competidor.h"
+
+
+using namespace std;
+
+int main(){
+
+	
+	Ajudante AJ1("Doido", 999, 1, 7, 7, 10);
+
+	AJ1.imprime();
+	cout << "Din recebido: " << AJ1.dinheiroRecebido() << endl << endl;
+
+	
+	Competidor C1("Jucelino", 888, 10, "Cristianetes", 1);
+
+	C1.imprime();
+	cout << "Din recebido: " << C1.dinheiroRecebido() << endl << endl;
+
+	Juiz juiz("Lucas", 5187, 7, 27, 7.777, 9);
+	
+	juiz.imprime();
+	cout << "Din recebido: " << juiz.dinheiroRecebido() << endl << endl;
+
+	Ajudante AJ2(AJ1);
+	Juiz J2;
+
+	J2 = juiz;
+
+
+	//TUDO TA FUCIONANDO, CONFIA!
+
+	return 0;
+}
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "Organizador.h"
+
+using namespace std;
+
+Organizador::Organizador(){
+	setHora(0);
+	setSalario(0);
+	setDia(0);
+}
+Organizador::~Organizador(){
+
+}
+
+Organizador::Organizador(Organizador& obj) : Pessoa(obj){
+	this->salario = obj.salario;
+	this->horaEntrada = obj.horaEntrada;
+	this->dia = obj.dia;
+	
+}
+
+Organizador::Organizador(string n, const int m, const int hora, const int dia, const double d) : Pessoa(n, m){
+	this->horaEntrada = hora;
+	this->dia = dia;
+	this->salario = d;
+}
+
+Organizador& Organizador::operator=(Organizador& obj){
+
+	Pessoa::operator=(obj);
+	this->salario = obj.salario;
+	this->horaEntrada = obj.horaEntrada;
+	this->dia = obj.dia;
+
+	return *this;
+}
+
+void Organizador::imprime(){
+	cout << "Salario: " << this->salario << endl;
+	cout << "Entrada: " << this->horaEntrada << endl;
+	
+}
+
+void Organizador::setHora(int h){
+	this->horaEntrada = h;
+}
+	
+int Organizador::getHora(){
+	return this->horaEntrada;
+}
+
+void Organizador::setSalario(double s){
+	this->salario = s;
+}
+
+double Organizador::getSalario(){
+	return this->salario;
+}
+
+void Organizador::setDia(int dia){
+	this->dia = dia;
+	
+}
+
+int Organizador::getDia(){
+	return this->dia;
+}
+
+
+double Organizador::dinheiroRecebido(){
+	
+}
+
+
+
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include "Pessoa.h"
+
+using namespace std;
+
+
+#ifndef ORGANIZADOR_H
+#define ORGANIZADOR_H
+
+class Organizador : public Pessoa
+{
+public:
+	Organizador();
+	~Organizador();
+
+	Organizador(Organizador&);
+	Organizador(string, const int , const int, const int , const double);
+
+	Organizador& operator=(Organizador&);
+
+	void setHora(int);
+	int getHora();
+
+	void setSalario(double);
+	double getSalario();
+
+	void setDia(int);
+	int getDia();
+
+
+	virtual void imprime();
+	virtual double dinheiroRecebido();
+
+private:
+	int horaEntrada;
+	int dia;
+	double salario;
+
+
+};
+#endif
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "Participante.h"
+
+using namespace std;
+
+Participante::Participante(){
+	this->premio = 0;
+}
+
+Participante::~Participante(){
+
+}
+
+Participante::Participante(Participante& obj) : Pessoa(obj){
+	this->premio = obj.premio;
+}
+
+Participante::Participante(string n, const int m, const double p) : Pessoa(n,m){
+	this->premio = p;
+}
+
+Participante& Participante::operator=(Participante& obj){
+	Pessoa::operator=(obj);
+	this->premio = obj.premio;
+
+	return *this;
+}
+
+void Participante::setPremio(double premio){
+	this->premio = premio;
+}
+
+double Participante::getPremio(){
+	return this->premio;
+}
+
+void Participante::imprime(){
+	Pessoa::imprime();
+	cout << "Premio: " << getPremio() << endl;
+}
+
+double Participante::dinheiroRecebido(){
+	
+}
+
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "Pessoa.h"
+
+#ifndef PARTICIPANTE_H
+#define PARTICIPANTE_H
+
+using namespace std;
+
+class Participante : Pessoa
+{
+
+public:
+	Participante();
+	~Participante();
+
+
+	Participante(Participante&);
+	Participante(string, const int, const double);
+
+	Participante& operator=(Participante&);
+
+	void setPremio(double);
+	double getPremio();
+
+	virtual void imprime();
+	virtual double dinheiroRecebido();
+	
+private:
+	double premio;
+
+};
+
+#endif
+
+
+
+
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+#include "Pessoa.h"
+
+using namespace std;
+
+
+Pessoa::Pessoa(){
+	setNome(" ");
+	setMatricula(0);
+}
+
+Pessoa::~Pessoa(){
+
+}
+
+Pessoa::Pessoa(const Pessoa& obj){
+	this->nome = obj.nome;
+	this->matricula = obj.matricula;	
+}
+
+Pessoa::Pessoa(const string nome, const int matricula){
+	this->nome = nome;
+	this->matricula = matricula;
+}
+
+string Pessoa::getNome(){return this->nome;}
+void Pessoa::setNome(string n){this->nome = n;}
+
+int Pessoa::getMatricula(){return this->matricula;}
+void Pessoa::setMatricula(int mat){this->matricula = mat;}
+
+void Pessoa::imprime(){
+ 	cout << "Nome: " << this->nome << endl;
+ 	cout << "Matricula: " << this->matricula << endl;
+ }
+
+ 
+Pessoa& Pessoa::operator=(Pessoa& obj){
+	this->nome = obj.nome;
+	this->matricula  = obj.matricula;
+
+return *this;
+}
+
+
+
+
+
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+#ifndef PESSOA_H
+#define PESSOA_H
+
+class Pessoa{
+
+private:
+	string nome;
+	int matricula;
+
+public:
+	Pessoa();
+	~Pessoa();
+
+	Pessoa(const Pessoa&);
+	Pessoa(const string, const int);
+
+
+
+	string getNome();
+	void setNome(string n);
+
+	int getMatricula();
+	void setMatricula(int mat);
+
+	virtual void imprime();
+	virtual double dinheiroRecebido() = 0; 
+
+	Pessoa& operator=(Pessoa&);
+
+
+};
+
+#endif
+
+-------------------------3--------------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <stdexcept>
+
+using namespace std;
+
+
+
+template<class T>
+
+class ArrayEspecial
+{
+public:
+	ArrayEspecial();
+	~ArrayEspecial();
+
+	ArrayEspecial(const ArrayEspecial<T>& );
+	ArrayEspecial(const int);
+
+	//ArrayEspecial<T>& operator=(const ArrayEspecial<T>&);
+
+	void insere(T, int);
+	void remove(int);
+	void imprime();
+
+private:
+	T* elementos;
+	int tam, max;
+	bool* ativos;
+	
+};
+
+template<class T>
+ArrayEspecial<T>::~ArrayEspecial(){
+	delete [] elementos;
+	delete [] ativos;
+}
+
+template<class T>
+ArrayEspecial<T>::ArrayEspecial(){
+
+	this->elementos = new T[10];
+	this->ativos = new bool[10];
+	this->tam = 0;
+	this->max = 50;
+
+	for(int i = 0; i<10; i++)
+		this->ativos[i] = {false};
+
+}
+
+template<class T>
+ArrayEspecial<T>::ArrayEspecial(const ArrayEspecial<T>& obj){
+
+	this->tam = obj.tam;
+	this->max = obj.max;
+
+	this->ativos = new bool[obj.tam];
+	this->elementos = new T[obj.tam];
+
+	for(int i = 0; i < obj.tam; i++){
+		if(obj.ativos[i] == true){
+			this->ativos[i] = true;
+			this->elementos[i] = obj.elementos[i];
+		
+	}
+
+		}
+}
+
+template<class T>
+ArrayEspecial<T>::ArrayEspecial(const int tam){
+	
+	this->elementos = new T[tam];
+	this->ativos = new bool[tam];
+	this->tam = tam; 
+	this->max = 50; //O tamanho maximo que eu escolhi foi 50.
+
+	for(int i = 0; i<tam; i++)
+		this->ativos[i] = {false};
+}
+
+/*template<class T>
+ArrayEspecial<T>& ArrayEspecial<T>::operator=(const ArrayEspecial<T>& obj){
+	this->tam = obj.tam;
+	this->max = obj.max;
+
+	this->ativos = new bool[obj.tam];
+	this->elementos = new T[obj.tam];
+
+	for(int i = 0; i < obj.tam; i++){
+		if(obj.ativos[i] == true){
+			this->ativos[i] = true;
+			this->elementos[i] = obj.elementos[i];
+		
+	}
+
+		}
+
+		return *this;
+
+
+}*/
+
+
+template<class T>
+void ArrayEspecial<T>::insere(T elemento, int p){
+
+	if(this->ativos[p] != true){
+
+	this->elementos[p] = elemento;
+	this->ativos[p] = true;
+	this->tam++;
+	}
+	
+}
+
+template<class T>
+void ArrayEspecial<T>::remove(int pos){
+	if(this->ativos[pos] == true){
+		this->ativos[pos] = false;
+		this->tam--;
+	}
+
+}
+
+template<class T>
+void ArrayEspecial<T>::imprime(){
+
+	for(int i = 0; i < this->tam; i++){
+		if(this->ativos[i] == true)
+			cout << elementos[i] << endl;
+		
+	}
+}
+
+int main(){
+
+	//Construtor normal, separa 10 espaços
+	ArrayEspecial<int>vet;
+
+
+	for(int i = 0; i<10; i++)
+		vet.insere(10,i);
+
+	vet.insere(07, 3);
+	
+
+	vet.imprime(); 
+	cout << endl;
+
+	//Construtor pra poder escolher um tamanho
+	ArrayEspecial<string>vet2(15);
+
+	vet2.insere("Lucas", 0);
+	vet2.insere("Alves", 1);
+	vet2.insere("Santos", 14);
+
+
+	vet2.imprime(); 
+	
+	
+
+	//Construtor de copia
+	/*ArrayEspecial<string>vet3(vet2);
+	vet3.imprime(); */
+
+	
+
+
+	return 0;
+}
+
+
+--------------4-------------------------------
+
+#include <iostream>
+
+using namespace std;
+
+class Vetor { 
+   public: 
+      class ExcecaoDeTamanho {}; 
+      class ExcecaoDeIndexacao {}; 
+
+      Vetor(int); 
+      int& operator[](int);  
+ 
+   private: 
+      int tam; 
+      int *mem; 
+};  
+
+Vetor::Vetor(int n) 
+{ 
+   if( n<=0 ) throw ExcecaoDeTamanho(); 
+   tam = n; 
+   mem = new int[n]; 
+} 
+
+int& Vetor::operator[](int n) 
+{  
+   if( n<0 || n >=tam ) 
+	throw ExcecaoDeIndexacao(); 
+   
+
+return mem[n]; 
+
+}
+
+
+
+
+
+int main(){
+
+try { 
+
+  int n; 
+  cout << "Qual o tamanho do vetor?"; 
+  cin >> n; 
+  Vetor v(n); 
+  int p; 
+  cout << "Qual a posiÃ§Ã£o?"; 
+  cin >> p; 
+  cout << "Qual o valor a ser armazenado?"; 
+  cin >> v[p]; 
+} 
+
+catch(Vetor::ExcecaoDeTamanho) { 
+  cout << "tamanho invÃ¡lido" << endl; 
+} 
+catch(Vetor::ExcecaoDeIndexacao) { 
+   cout << "Ã­ndice invÃ¡lido" << endl; 
+} 
+catch(...) { 
+   cout << "exceÃ§Ã£o inesperada" << endl; 
+} 
+
+cout << "Ola";
+
+
+return 0;
+}

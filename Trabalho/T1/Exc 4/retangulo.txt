@@ -1,0 +1,106 @@
+class Retangulo : public formaBasica{
+
+private:
+	double largura;
+	double altura;
+
+public:
+	Retangulo();
+	~Retangulo();
+	// ????? Retangulo(const Circulo&) 
+	Retangulo(const Retangulo&);
+	Retangulo(const float, const float, const int, const int, const int, const float, const float);
+
+	void setLargura(float);
+	float getLargura();
+
+	void setAltura(float);
+	float getAltura();
+
+	void imprime();
+	float area();
+
+	Retangulo& operator=(Retangulo&);
+
+	friend ostream& operator<<(ostream&, Retangulo&);
+	friend istream& operator>>(istream&, Retangulo&);
+
+
+};
+
+Retangulo::Retangulo(){
+
+}
+
+Retangulo::~Retangulo(){
+
+}
+
+Retangulo::Retangulo(const Retangulo& obj) : formaBasica(obj){
+/*this->x = obj.x;
+this->y = obj.y;
+this->cor = obj.cor;
+this->espessuraContorno = obj.espessuraContorno;
+this->tipoContorno = obj.tipoContorno;*/
+this->altura = obj.altura;
+this->largura = obj.largura;
+}
+
+Retangulo::Retangulo(const float x, const float y, const int cor, const int espessura, const int contorno, const float altura, const float largura) : Retangulo(x, y, cor, espessura, contorno){
+/*this->x = x;
+this->y = y;
+this->cor = cor;
+this->espessuraContorno = espessura;
+this->tipoContorno = contorno;*/
+this->largura = largura;
+this->altura = altura;
+}
+
+void Retangulo::imprime(){
+
+	formaBasica::imprime();
+	printf("%f %f\n", this->largura, this->altura);
+}
+
+istream& operator>>(istream& entrada, Retangulo& obj){
+	/*entrada >> obj.x;
+	entrada >> obj.y;
+	entrada >> obj.cor;
+	entrada >> obj.espessuraContorno;
+	entrada >> obj.tipoContorno;*/
+	formaBasica::operator>>(obj);
+	entrada >> obj.largura;
+	entrada >> obj.altura;
+
+	return entrada;
+
+}
+
+ostream& operator<<(ostream& saida, Retangulo& obj){
+	/*saida << obj.x << " ";
+	saida << obj.y << " ";
+	saida << obj.cor << " ";
+	saida << obj.espessuraContorno << " ";
+	saida << obj.tipoContorno << " ";*/
+	formaBasica::operator<<(obj);
+	saida << obj.largura << " ";
+	saida << obj.altura << " " << endl;
+	
+
+	return saida;
+}
+
+Retangulo& Retangulo::operator=(Retangulo& obj){
+	/*this->x = obj.x;
+	this->y = obj.y;
+	this->cor = obj.cor;
+	this->espessuraContorno = obj.espessuraContorno;
+	this->tipoContorno = obj.tipoContorno;*/
+	formaBasica::operator=(obj);
+	this->largura = obj.largura;
+	this->altura = obj.altura;
+
+	return *this;
+}
+
+
